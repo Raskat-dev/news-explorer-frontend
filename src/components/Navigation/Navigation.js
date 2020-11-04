@@ -4,8 +4,13 @@ import { NavLink } from "react-router-dom";
 import logout from "../../vendor/images/logout.svg";
 import logoutwhite from "../../vendor/images/logoutwhite.svg";
 
-function Navigation(props) {
-  const { loggedIn, saved, main, mobileNavIsOpened } = props;
+function Navigation({ loggedIn, saved, main, mobileNavIsOpened, openPopup, mobiNavClick }) {
+
+  function openPopupA() {
+    openPopup();
+    if (mobileNavIsOpened) mobiNavClick();
+  }
+
 
   return (
     <>
@@ -30,13 +35,13 @@ function Navigation(props) {
             }
           >
             <NavLink to="/saved-news" className={main || mobileNavIsOpened ? "navigation__link navigation__link_white" : "navigation__link"}>
-              Сохраненные статьи
+              Сохранённые статьи
             </NavLink>
           </li>
         )}
       </ul>
       {loggedIn && (
-        <button className={main || mobileNavIsOpened ? "navigation__button navigation__button_white" : "navigation__button"}>
+        <button className={main || mobileNavIsOpened ? "navigation__button navigation__button_white" : "navigation__button"} type="button">
           Ростислав
           <img
             className="navigation__button-icon"
@@ -46,7 +51,7 @@ function Navigation(props) {
         </button>
       )}
       {!loggedIn && (
-        <button className={main || mobileNavIsOpened ? " navigation__button_white" : "navigation__button"}>Авторизироваться</button>
+        <button className={main || mobileNavIsOpened ? "navigation__button navigation__button_white" : "navigation__button"} type="button" onClick={openPopupA}>Авторизироваться</button>
       )}
     </>
   );

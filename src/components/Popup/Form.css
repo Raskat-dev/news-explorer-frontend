@@ -1,0 +1,124 @@
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form__input-field {
+  display: flex;
+  flex-direction: column;
+  /* padding: 6px 0; */
+}
+
+.form__label {
+  font-family: "Inter", Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  color: #2f71e5;
+  align-self: flex-start;
+  padding: 0 0 2px 0;
+}
+
+.form__input {
+  width: 100%;
+  border: none;
+  font-family: "Inter", Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  outline: none;
+  padding: 6px 0;
+}
+
+.form__input:focus {
+  border-bottom: 1px solid rgb(0, 0, 0);
+}
+
+.form__input_isnotvalid {
+  border-bottom: 1px solid rgb(247, 5, 5);
+}
+
+.form__input-error {
+  font-family: "Inter", Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: #ff0000;
+  height: 30px;
+  text-align: left;
+}
+
+.form__input-error_general {
+  align-self: center;
+  height: 15px;
+}
+
+.form__button_popup {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.form__button_popup_disabled {
+  background: #e6e8eb;
+}
+
+.form__link-container {
+  display: flex;
+}
+
+.form__link-or {
+  font-family: "Inter", Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #000000;
+}
+
+.form__link-button {
+  margin: 0 0 0 4px;
+  padding: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: none;
+  font-family: "Inter", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #2f71e5;
+}
+
+.form__link-button_success {
+  font-size: 18px;
+  line-height: 22px;
+  margin: 0;
+  align-self: flex-start;
+}
+
+.form__link-button:hover {
+  color: #347eff;
+}
+
+.form__link-button:active {
+  color: #2a65cc;
+}
+
+@media screen and (max-width: 650px) {
+  .form__button_popup {
+    margin-top: 0;
+  }
+
+  .form__input-error_general {
+    margin-bottom: 10px;
+  }
+}

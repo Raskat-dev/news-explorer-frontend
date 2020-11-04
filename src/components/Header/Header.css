@@ -2,7 +2,7 @@
   margin: 0 auto;
   padding: 0 104px;
   box-sizing: content-box;
-  height: 80px;
+  min-height: 80px;
   box-shadow: inset 0px -1px 0px #D1D2D6;
   display: flex;
   flex-direction: row;
@@ -31,7 +31,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 100%;
+  height: 80px;
 }
 
 .header__burger {
@@ -44,14 +44,19 @@
 
 @media screen and (max-width: 890px) {
   .header__container {
-    height: 66px;
+    min-height: 66px;
     padding: 0 40px;
   }
+
+
+.header__navigation {
+  height: 66px;
+}
 }
 
 @media screen and (max-width: 650px) {
   .header__container {
-    height: 56px;
+    min-height: 56px;
     padding: 0 16px;
   }
   .header__name {
@@ -70,12 +75,15 @@
     position: relative;
     z-index: 3;
     transition: all 0.4s ease 0s;
+    margin-right: 6px;
+    background: none;
+    border: none;
+    outline: none;
   }
   .header__burger_black:after,
   .header__burger_black:before {
     background-color: #1A1B22;
     content: "";
-    display: block;
     height: 2px;
     width: 16px;
     margin: 4px 0;
@@ -84,7 +92,6 @@
   .header__burger_white:before {
     background-color: #fff;
     content: "";
-    display: block;
     height: 2px;
     width: 16px;
     margin: 4px 0;
@@ -101,6 +108,7 @@
   .header__mobile-menu {
     display: flex;
     flex-direction: column;
+    align-items: center;
     position: absolute;
     top: -100%;
     left: 0;
@@ -108,7 +116,6 @@
     box-sizing: border-box;
     background-color: #1A1B22;
     width: 100%;
-    height: 284px;
     margin-top: -56px;
     padding-top: 88px;
     transition: all 0.3s ease 0s;

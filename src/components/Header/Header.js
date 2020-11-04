@@ -5,7 +5,13 @@ function Header({ component: Component, ...props }) {
   const [mobileNavIsOpened, setMobileNavIsOpened] = React.useState(false);
 
   function mobiNavClick() {
-    setMobileNavIsOpened(!mobileNavIsOpened);
+    if (props.popupIsOpened) {
+      props.closePopup();
+      setMobileNavIsOpened(false)
+    }
+    else {
+      setMobileNavIsOpened(!mobileNavIsOpened);
+    }
   }
 
   return (
@@ -22,20 +28,20 @@ function Header({ component: Component, ...props }) {
             NewsExplorer
           </h3>
           <nav className="header__navigation">
-            <Component {...props} />
+            <Component {...props} mobileNavIsOpened={mobileNavIsOpened}/>
           </nav>
-          <div
+          <button
             className={`${
               mobileNavIsOpened
                 ? "header__burger header__burger_opened"
                 : "header__burger"
-            }
-        } ${
-          props.main || mobileNavIsOpened
-            ? "header__burger_white"
-            : "header__burger_black"
-        }`}
+            } ${props.popupIsOpened ? "header__burger_opened" : ""} ${
+              props.main || mobileNavIsOpened
+                ? "header__burger_white"
+                : "header__burger_black"
+            }`}
             onClick={mobiNavClick}
+            type="button"
           />
         </div>
         <nav
@@ -45,7 +51,12 @@ function Header({ component: Component, ...props }) {
               : "header__mobile-menu"
           }
         >
-          <Component {...props} mobileNavIsOpened={mobileNavIsOpened} />
+          <Component
+            {...props}
+            mobileNavIsOpened={mobileNavIsOpened}
+            mobiNavClick={mobiNavClick}
+            setMobileNavIsOpened={setMobileNavIsOpened}
+          />
         </nav>
       </header>
       {mobileNavIsOpened && <div className="header__mobile-overflow" />}
