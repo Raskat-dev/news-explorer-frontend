@@ -2,6 +2,17 @@ import React from "react";
 import "./SearchForm.css";
 
 function SearchForm({ searchIsClicked }) {
+  const [value, setValue] = React.useState('');
+  const [isValid, setIsValid] = React.useState(false);
+
+  const handleChange = (event) => {
+    const target = event.target;
+    const value = target.value;
+    setValue(value);
+    setIsValid(target.closest("form").checkValidity());
+    console.log(value);
+  };
+
   function clickOnSearch(e) {
     e.preventDefault();
     searchIsClicked(true);
@@ -16,10 +27,23 @@ function SearchForm({ searchIsClicked }) {
     <section className="search__container">
       <div className="search__content">
         <h1 className="search__name">Что творится в мире?</h1>
-        <p className="search__discription">Находите самые свежие статьи на любую тему и сохраняйте в своём личном кабинете.</p>
+        <p className="search__discription">
+          Находите самые свежие статьи на любую тему и сохраняйте в своём личном
+          кабинете.
+        </p>
         <form className="search__form" onSubmit={clickOnSearch}>
-          <input name="search" type="text" placeholder="Введите тему новости" className="search__input" />
-          <button className="form__button search__button" type="submit">Искать</button>
+          <input
+            name="search"
+            type="text"
+            placeholder="Введите тему новости"
+            className="search__input"
+            onChange={handleChange}
+            value={value}
+            required
+          />
+          <button className="form__button search__button" type="submit" disabled={!isValid}>
+            Искать
+          </button>
         </form>
       </div>
     </section>

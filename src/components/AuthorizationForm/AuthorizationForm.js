@@ -63,7 +63,7 @@ function AuthorizationForm({ values, errors, isValid, handleChange, setPopupType
       </form>
       <div className="form__link-container">
         <p className="form__link-or">или </p>
-        <button className="form__link-button" type="button" onClick={goToRegistration} >Зарегистрироваться</button>
+        <button className="form__link-button" type="button" onClick={goToRegistration}>Зарегистрироваться</button>
       </div>
     </>
   );
