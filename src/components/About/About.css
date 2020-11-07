@@ -1,0 +1,114 @@
+.about {
+  padding: 80px 104px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 1440px;
+}
+
+.about__image {
+  background: url("../../vendor/images/newava.JPG") 30% 30%;
+  display: flex;
+  border-radius: 100%;
+  width: 464px;
+  height: 464px;
+  align-items: center;
+  background-size: cover;
+}
+
+.about__description {
+  display: flex;
+  align-self: flex-start;
+  flex-direction: column;
+  text-align: left;
+  padding: 50px 0 0 56px;
+  width: 49%;
+}
+
+.about__title {
+  font-family: "Roboto Slab", Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 40px;
+  line-height: 46px;
+  color: #1a1b22;
+  margin: 0;
+  padding: 0 0 24px 0;
+}
+
+.about__text {
+  margin: 0;
+  padding: 0 0 24px 0;
+  font-family: "Roboto", Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+  color: #1a1b22;
+}
+
+@media screen and (max-width: 1230px) {
+  .about__image {
+    width: 320px;
+    height: 320px;
+  }
+
+  .about__description {
+    padding: 28px 0 0 56px;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .about {
+    padding: 40px 40px;
+  }
+
+  .about__image {
+    width: 232px;
+    height: 232px;
+  }
+
+  .about__description {
+    padding: 0 0 0 32px;
+    width: 60%;
+  }
+
+  .about__title {
+    font-size: 30px;
+    line-height: 40px;
+    padding: 0 0 8px 0;
+  }
+
+  .about__text {
+    margin: 0;
+    padding: 0 0 24px 0;
+    font-family: "Roboto", Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    color: #1a1b22;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .about {
+    padding: 30px 0 30px 0;
+    flex-direction: column;
+  }
+
+  .about__image {
+    width: 272px;
+    height: 272px;
+  }
+
+  .about__description {
+    box-sizing: border-box;
+    padding: 26px 16px;
+    width: 100%;
+  }
+
+  .about__title {
+    padding: 0 0 16px 0;
+  }
+}

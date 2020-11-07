@@ -1,0 +1,44 @@
+.button-block {
+  padding: 0 0 80px 0;
+}
+
+.button-block__button {
+  box-sizing: border-box;
+  width: 288px;
+  height: 64px;
+  cursor: pointer;
+  background: #ffffff;
+  border-radius: 80px;
+  border: none;
+  outline: none;
+  font-family: "Roboto", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  color: #1a1b22;
+  transition: .3s ease-out;
+}
+
+.button-block__button:hover {
+  background: rgba(255, 255, 255, .9)
+}
+
+@media screen and (max-width: 950px) {
+  .button-block {
+    padding: 0 0 40px 0;
+  }
+  .button-block__button {
+    height: 56px;
+    width: 240px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .button-block {
+    padding: 6px 0 28px 0;
+  }
+  .button-block__button {
+    height: 56px;
+    width: 288px;
+  }
+}

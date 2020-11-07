@@ -1,0 +1,137 @@
+.header__container {
+  margin: 0 auto;
+  padding: 0 104px;
+  box-sizing: content-box;
+  min-height: 80px;
+  box-shadow: inset 0px -1px 0px #D1D2D6;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  position: relative;
+  z-index: 4;
+}
+/*БЕЛЫЙ ЦВЕТ ДЛЯ МЭЙНА*/
+.header__name {
+  font-family: 'Roboto Slab', Arial, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 24px;
+  color: #1A1B22;
+  transition: all 0.3s linear 0s;
+}
+
+.header__name_white {
+  color: #fff;
+}
+
+.header__navigation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 80px;
+}
+
+.header__burger {
+  display: none;
+}
+
+.header__mobile-menu {
+  display: none;
+}
+
+@media screen and (max-width: 890px) {
+  .header__container {
+    min-height: 66px;
+    padding: 0 40px;
+  }
+
+
+.header__navigation {
+  height: 66px;
+}
+}
+
+@media screen and (max-width: 650px) {
+  .header__container {
+    min-height: 56px;
+    padding: 0 16px;
+  }
+  .header__name {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .header__navigation {
+    display: none;
+  }
+
+  .header__burger,
+  .header__burger:after,
+  .header__burger:before {
+    display: block;
+    position: relative;
+    z-index: 3;
+    transition: all 0.4s ease 0s;
+    margin-right: 6px;
+    background: none;
+    border: none;
+    outline: none;
+  }
+  .header__burger_black:after,
+  .header__burger_black:before {
+    background-color: #1A1B22;
+    content: "";
+    height: 2px;
+    width: 16px;
+    margin: 4px 0;
+  }
+  .header__burger_white:after,
+  .header__burger_white:before {
+    background-color: #fff;
+    content: "";
+    height: 2px;
+    width: 16px;
+    margin: 4px 0;
+  }
+
+  .header__burger_opened:before {
+    transform: rotate(-45deg) translateY(4px);
+  }
+
+  .header__burger_opened:after {
+    transform: rotate(45deg) translateY(-4px);
+  }
+
+  .header__mobile-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: -100%;
+    left: 0;
+    z-index: 3;
+    box-sizing: border-box;
+    background-color: #1A1B22;
+    width: 100%;
+    margin-top: -56px;
+    padding-top: 88px;
+    transition: all 0.3s ease 0s;
+  }
+
+  .header__mobile-menu_opened {
+    top: 56px;
+  }
+
+  .header__mobile-overflow {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+  }
+}
