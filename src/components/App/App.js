@@ -1,38 +1,67 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import "./App.css";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { UserApi } from "../../api/UserApi";
+import { myNewsApi } from "../../api/NewsActionApi";
 import Main from "../Main/Main";
 import ProtectedRoute from "../ProtectedRoute";
 import SavedNews from "../SavedNews/SavedNews";
 import Footer from "../Footer/Footer";
 
-import newsImage from "../../vendor/images/newsImage.jpg";
+import "./App.css";
 
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [newsCards, setNewsCards] = React.useState([
-    {image: newsImage, _id: 1, date: "2 августа, 2019", title: "«Первозданная тайга»: новый фотопроект Игоря Шпиленка", text: "Знаменитый фотограф снимает первозданные леса России, чтобы рассказать о необходимости их хранения. В этот раз он отправился в Двинско-Пинежскую тайгу, где asdasdasdфы ввввфыфвф вфывфывфы вфывфыв фывфывфывфывфas dasdasdasdывфывфыв", source: "Афиша", keyword: "Природа"}, {image: newsImage, _id: 2, date: "2 августа, 2019", title: "Лесные огоньки: история одной фотографии", text: "Фотограф отвлеклась от освещения суровой политической реальности Мексики, чтобы запечатлеть ускользающую красоту одного из местных чудес природы.", source: "Афиша", keyword: "Тайга"}, {image: newsImage, _id: 3, date: "2 августа, 2019", title: "Лесные огоньки: история одной фотографии", text: "Фотограф отвлеклась от освещения суровой политической реальности Мексики, чтобы запечатлеть ускользающую красоту одного из местных чудес природы.", source: "Афиша", keyword: "Природа"}, {image: newsImage, _id: 4, date: "2 августа, 2019", title: "Лесные огоньки: история одной фотографии", text: "Фотограф отвлеклась от освещения суровой политической реальности Мексики, чтобы запечатлеть ускользающую красоту одного из местных чудес природы.", source: "Афиша", keyword: "Сноватег"}, {image: newsImage, _id: 5, date: "2 августа, 2019", title: "Лесные огоньки: история одной фотографии", text: "Фотограф отвлеклась от освещения суровой политической реальности Мексики, чтобы запечатлеть ускользающую красоту одного из местных чудес природы.", source: "Афиша", keyword: "Природа"}
-  ])
+  const [currentUser, setCurrentUser] = React.useState({});
+  const [savedNews, setSavedNews] = React.useState([]);
+
+  function checkUserToken() {
+    const token = localStorage.getItem("token");
+    if (token) {
+      UserApi.getCurrentUser(token)
+        .then((res) => {
+          if (res) {
+            setCurrentUser(res);
+            setLoggedIn(true);
+            myNewsApi
+              .get()
+              .then((res) => setSavedNews(res))
+              .catch((err) => console.log(err));
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
+
+  React.useEffect(() => {
+    checkUserToken();
+  }, [loggedIn]);
 
   return (
-    <div className="App">
-      <Switch>
-        <Route exact path="/">
-          <Main loggedIn={loggedIn} newsCards={newsCards} />
-        </Route>
-        <ProtectedRoute
-          exact
-          path="/saved-news"
-          loggedIn={loggedIn}
-          component={SavedNews}
-          newsCards={newsCards}
-        />
-        <Route path="/">
-          <Redirect to="/" />
-        </Route>
-      </Switch>
-      <Footer />
-    </div>
+    <CurrentUserContext.Provider
+      value={{ currentUser, setCurrentUser, setLoggedIn, loggedIn, savedNews }}
+    >
+      <div className="App">
+        <Switch>
+          <Route exact path="/">
+            <Main loggedIn={loggedIn} savedNews={savedNews} setSavedNews={setSavedNews} />
+          </Route>
+          <ProtectedRoute
+            exact
+            path="/saved-news"
+            loggedIn={loggedIn}
+            component={SavedNews}
+            setSavedNews={setSavedNews}
+          />
+          <Route path="/">
+            <Redirect to="/" />
+          </Route>
+        </Switch>
+        <Footer />
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 

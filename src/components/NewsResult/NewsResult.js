@@ -2,24 +2,24 @@ import React from "react";
 import NewsCard from "../NewsCard/NewsCard";
 import "./NewsResult.css";
 
-function NewsResult({ newsCards, showAllCards, loggedIn, main }) {
-  const newsResultClassName = (
-    `${showAllCards ? 'news-result__cards' : 'news-result__cards news-result__cards_hidden'}`
-  );
-
+function NewsResult({ showedNews, loggedIn, main, handleCardSave }) {
   return (
-    <div className="news-result">
-      <ul className={newsResultClassName}>
-      {newsCards.map((newsCard) => (
-          <NewsCard
-            key={newsCard._id}
-            newsCard={newsCard}
-            loggedIn={loggedIn}
-            main={main}
-          />
-        ))}
-      </ul>
-    </div>
+    <>
+      <h2 className="news__title">Результаты поиска</h2>
+      <div className="news-result">
+        <ul className="news-result__cards">
+          {showedNews.map((news, id) => (
+            <NewsCard
+              key={id}
+              news={news}
+              loggedIn={loggedIn}
+              main={main}
+              handleCardSave={handleCardSave}
+            />
+          ))}
+        </ul>
+      </div>
+    </>
   );
 }
 

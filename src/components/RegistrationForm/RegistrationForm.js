@@ -1,4 +1,5 @@
 import React from "react";
+import { UserApi } from "../../api/UserApi";
 
 function RegistrationForm({
   values,
@@ -6,14 +7,36 @@ function RegistrationForm({
   isValid,
   handleChange,
   setPopupType,
+  resetForm,
+  setErrors,
+  setSuccessMessage,
 }) {
-  function handleSubmit(event) {
-    event.preventDefault();
-    console.log(values, errors, isValid);
-  }
 
   function goToAuthorization() {
     setPopupType("authorization");
+    resetForm();
+  }
+
+  function goToSucces() {
+    setPopupType("success");
+  }
+
+  function onRegister({ email, password, name }) {
+    return UserApi
+      .register(email, password, name)
+      .then((res) => {
+        setSuccessMessage(res.message);
+        goToSucces();
+        resetForm();
+      })
+      .catch((err) => {
+        setErrors({ general: err.message });
+      });
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    onRegister(values);
   }
 
   return (
@@ -96,15 +119,13 @@ function RegistrationForm({
         </div>
         {/* Если с сервера приходит ошибка монго */}
         <span
-          id="name-input-error"
+          id="general-error"
           className="form__input-error form__input-error_general"
         >
-          {"" || "Такой пользователь уже есть"}
+          {errors.general}
         </span>
         <button
-          className={`form__button form__button_popup ${
-            !isValid && "form__button_popup_disabled"
-          }`}
+          className={!isValid ? "form__button_popup_disabled" : "form__button form__button_popup"}
           type="submit"
           disabled={!isValid}
         >

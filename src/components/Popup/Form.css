@@ -59,13 +59,51 @@
   height: 15px;
 }
 
+.form__button {
+  font-family: "Roboto", Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  height: 64px;
+  background: #2f71e5;
+  color: #fff;
+  box-shadow: 0px 5px 15px rgba(14, 26, 57, 0.2);
+  border: none;
+  border-radius: 100px;
+  transition: 0.3s ease-out;
+  outline: none;
+}
+
+.form__button:hover {
+  background: #347eff;
+}
+
+.form__button:active {
+  background: #2a65cc;
+}
+
 .form__button_popup {
   width: 100%;
   margin-top: 12px;
 }
 
 .form__button_popup_disabled {
+  font-family: "Roboto", Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  height: 64px;
   background: #e6e8eb;
+  color: #fff;
+  box-shadow: 0px 5px 15px rgba(14, 26, 57, 0.2);
+  border: none;
+  border-radius: 100px;
+  transition: 0.3s ease-out;
+  outline: none;
 }
 
 .form__link-container {

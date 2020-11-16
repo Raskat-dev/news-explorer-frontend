@@ -1,14 +1,42 @@
 import React from "react";
+import { UserApi } from "../../api/UserApi";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function AuthorizationForm({ values, errors, isValid, handleChange, setPopupType }) {
+function AuthorizationForm({
+  values,
+  errors,
+  isValid,
+  handleChange,
+  setPopupType,
+  resetForm,
+  setErrors,
+  onClose,
+}) {
+  const user = React.useContext(CurrentUserContext);
+
+  function goToRegistration() {
+    setPopupType("registration");
+    resetForm();
+  }
+
+  function onLogin({ email, password }) {
+    return UserApi
+      .authorization(email, password)
+      .then((res) => {
+        UserApi.getCurrentUser(res.token).then((res) => {
+          user.setCurrentUser(res);
+          user.setLoggedIn(true);
+        });
+      })
+      .then(() => onClose())
+      .catch((err) => {
+        setErrors({ general: err.message });
+      });
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(values, errors, isValid);
-  }
-
-  function goToRegistration() {
-    setPopupType('registration');
+    onLogin(values);
   }
 
   return (
@@ -29,7 +57,11 @@ function AuthorizationForm({ values, errors, isValid, handleChange, setPopupType
           </label>
           <input
             id="email-input"
-            className={errors.email ? "form__input form__input_isnotvalid" : "form__input"}
+            className={
+              errors.email
+                ? "form__input form__input_isnotvalid"
+                : "form__input"
+            }
             type="text"
             placeholder="Введите почту"
             name="email"
@@ -38,7 +70,9 @@ function AuthorizationForm({ values, errors, isValid, handleChange, setPopupType
             pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
             title="Неправильный формат email"
           />
-          <span id="email-input-error" className="form__input-error">{errors.email || ''}</span>
+          <span id="email-input-error" className="form__input-error">
+            {errors.email || ""}
+          </span>
         </div>
         <div className="form__input-field">
           <label htmlFor="password" className="form__label">
@@ -46,7 +80,11 @@ function AuthorizationForm({ values, errors, isValid, handleChange, setPopupType
           </label>
           <input
             id="password-input"
-            className={errors.password ? "form__input form__input_isnotvalid" : "form__input"}
+            className={
+              errors.password
+                ? "form__input form__input_isnotvalid"
+                : "form__input"
+            }
             type="password"
             placeholder="Введите пароль"
             name="password"
@@ -55,15 +93,33 @@ function AuthorizationForm({ values, errors, isValid, handleChange, setPopupType
             minLength="6"
             title="Пароль должен содержать минимум 6 символов"
           />
-          <span id="password-input-error" className="form__input-error">{'' || errors.password}</span>
+          <span id="password-input-error" className="form__input-error">
+            {"" || errors.password}
+          </span>
         </div>
-        <button className={`form__button form__button_popup ${!isValid && 'form__button_popup_disabled'}`} type="submit" disabled={!isValid}>
+        <span
+          id="general-error"
+          className="form__input-error form__input-error_general"
+        >
+          {errors.general}
+        </span>
+        <button
+          className={!isValid ? "form__button_popup_disabled" : "form__button form__button_popup"}
+          type="submit"
+          disabled={!isValid}
+        >
           Войти
         </button>
       </form>
       <div className="form__link-container">
         <p className="form__link-or">или </p>
-        <button className="form__link-button" type="button" onClick={goToRegistration}>Зарегистрироваться</button>
+        <button
+          className="form__link-button"
+          type="button"
+          onClick={goToRegistration}
+        >
+          Зарегистрироваться
+        </button>
       </div>
     </>
   );
