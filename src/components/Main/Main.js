@@ -25,16 +25,19 @@ function Main({ loggedIn, savedNews, setSavedNews }) {
     setPopupIsOpened(true);
   }
 
-
   function handleCardSave(news) {
-    const isSaved = savedNews.some((el) => el.link === news.link);
+    let isSaved;
+    if (savedNews) {
+      isSaved = savedNews.some((el) => el.link === news.link);
+    } else {
+      isSaved = false;
+    }
     // * Отправляем запрос в API и получаем обновлённые данные карточки
     if (!isSaved) {
       myNewsApi
         .add(news)
         .then((res) => {
           setSavedNews([...savedNews, res]);
-
         })
         .catch((err) => {
           console.log(`Ошибка ${err}.`);

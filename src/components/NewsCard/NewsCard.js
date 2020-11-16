@@ -6,14 +6,14 @@ import "./NewsCard.css";
 
 function NewsCard({ news, main, saved, handleCardSave, handleCardDelete }) {
   const user = React.useContext(CurrentUserContext);
-  const [isSaved, setIsSaved] = React.useState(
-    user.savedNews.find((item) => item.link === news.link) !== undefined
-  );
+  const [isSaved, setIsSaved] = React.useState(false);
 
   React.useEffect(() => {
-    setIsSaved(
-      user.savedNews.find((item) => item.link === news.link) !== undefined
-    );
+    if (user.savedNews) {
+      setIsSaved(
+        user.savedNews.find((item) => item.link === news.link) !== undefined
+      );
+    }
   }, [user.savedNews, news.link]);
 
   if (news.image == null)
@@ -66,7 +66,9 @@ function NewsCard({ news, main, saved, handleCardSave, handleCardDelete }) {
         rel="noopener noreferrer"
         className="news-card__link"
       >
-        <div className="news-card__image"><img alt="изображение" src={news.image} /></div>
+        <div className="news-card__image">
+          <img alt="изображение" src={news.image} />
+        </div>
         <div className="news-card__text-container">
           <div className="news-card__justify">
             <p className="news-card__date">{news.date}</p>

@@ -1,13 +1,11 @@
 import { NewsExplorerApiData } from "./options";
-
-const token = localStorage.getItem("token");
-
 class MyNewsApi {
   constructor(options) {
     this._url = options.URL;
   }
 
   get() {
+    const token = localStorage.getItem("token");
     return fetch(`${this._url}/articles`, {
       method: "GET",
       headers: {
@@ -23,6 +21,7 @@ class MyNewsApi {
   }
 
   add({ keyword, title, text, date, source, link, image }) {
+    const token = localStorage.getItem("token");
     return fetch(`${this._url}/articles`, {
       method: "POST",
       headers: {
@@ -46,6 +45,7 @@ class MyNewsApi {
   }
 
   delete(id) {
+    const token = localStorage.getItem("token");
     return fetch(`${this._url}/articles/${id}`, {
       method: "DELETE",
       headers: {

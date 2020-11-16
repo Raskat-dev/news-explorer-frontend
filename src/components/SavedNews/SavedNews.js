@@ -13,27 +13,29 @@ function SavedNews({ loggedIn, setSavedNews }) {
   function handleCardDelete(news) {
     myNewsApi
       .delete(news._id)
-      .then(setSavedNews(user.savedNews.filter((el) => el._id!== news._id)))
+      .then(setSavedNews(user.savedNews.filter((el) => el._id !== news._id)))
       .catch((err) => {
         console.log(`Ошибка ${err}.`);
       });
-}
+  }
 
   return (
     <>
       <Header saved={true} component={Navigation} loggedIn={loggedIn} />
       <SavedNewsHeader />
-      <ul className="news-result__cards">
-        {user.savedNews.map((news) => (
-          <NewsCard
-            key={news._id}
-            news={news}
-            loggedIn={loggedIn}
-            saved={true}
-            handleCardDelete={handleCardDelete}
-          />
-        ))}
+      {user.savedNews && (
+        <ul className="news-result__cards">
+          {user.savedNews.map((news) => (
+            <NewsCard
+              key={news._id}
+              news={news}
+              loggedIn={loggedIn}
+              saved={true}
+              handleCardDelete={handleCardDelete}
+            />
+          ))}
         </ul>
+      )}
     </>
   );
 }

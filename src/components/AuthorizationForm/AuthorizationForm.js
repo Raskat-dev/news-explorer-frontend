@@ -1,5 +1,6 @@
 import React from "react";
 import { UserApi } from "../../api/UserApi";
+import { myNewsApi } from "../../api/NewsActionApi";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function AuthorizationForm({
@@ -24,8 +25,14 @@ function AuthorizationForm({
       .authorization(email, password)
       .then((res) => {
         UserApi.getCurrentUser(res.token).then((res) => {
-          user.setCurrentUser(res);
-          user.setLoggedIn(true);
+          if (res) {
+            user.setCurrentUser(res);
+            user.setLoggedIn(true);
+            myNewsApi
+              .get()
+              .then((res) => user.setSavedNews(res))
+              .catch((err) => console.log(err));
+          }
         });
       })
       .then(() => onClose())
