@@ -14,6 +14,12 @@
   object-fit: cover;
 }
 
+.news-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .news-card__text-container {
   box-sizing: border-box;
   padding: 20px 24px 24px 24px;
@@ -52,8 +58,13 @@
   font-size: 26px;
   line-height: 30px;
   color: #1a1b22;
-  margin: 0;
-  padding: 14px 0;
+  margin: 14px 0;
+  padding: 0;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow-y: hidden;
 }
 
 .news-card__text {
@@ -66,7 +77,7 @@
   margin: 0;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow-y: hidden;
 }
@@ -82,6 +93,9 @@
   color: #b6bcbf;
   margin: 0;
   text-align: left;
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
 }
 
 .news-card__button {
@@ -98,6 +112,7 @@
   background-position: center;
   background-repeat: no-repeat;
   transition: 0.3s ease-out;
+  z-index: 2;
 }
 
 .news-card__keyword {
@@ -110,6 +125,7 @@
   display: flex;
   align-items: center;
   padding: 0 12px;
+  z-index: 2;
 }
 .news-card__keyword p {
   font-family: Roboto;
@@ -119,6 +135,17 @@
   line-height: 24px;
   color: #000000;
   margin: 0;
+  white-space: nowrap;
+  max-width: 140px;
+  text-overflow: ellipsis;
+}
+
+.news-card__link {
+  text-decoration: none;
+  outline: none;
+  width: fit-content;
+  cursor: pointer;
+  height: 100%;
 }
 
 .news-card__button_main {
@@ -137,7 +164,30 @@
   background-image: url(../../vendor/images/cardDeleteHover.svg);
 }
 
-.news-card__button:hover::before {
+.news-card__button_main:disabled:hover::before {
+  content: attr(data-title);
+  position: absolute;
+  top: 0px;
+  right: 50px;
+  transition: 0.3s ease-out;
+  background: #fff;
+  height: 40px;
+  font-family: "Roboto", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 12px;
+  text-align: center;
+  color: #000000;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 16px 10px;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.news-card__button_saved:hover::before {
   content: attr(data-title);
   position: absolute;
   top: 0px;
@@ -188,7 +238,7 @@
   .news-card__title {
     font-size: 22px;
     line-height: 24px;
-    padding: 12px 0 10px;
+    margin: 12px 0 10px;
   }
 
   .news-card__text {
@@ -212,6 +262,11 @@
     top: 50px;
     right: 0px;
   }
+
+  .news-card__source {
+    bottom: 16px;
+    left: 16px;
+  }
 }
 @media screen and (max-width: 767px) {
   .news-card__image {
@@ -224,7 +279,7 @@
   .news-card__title {
     font-size: 22px;
     line-height: 26px;
-    padding: 10px 0 10px;
+    margin: 10px 0 10px;
   }
 
   .news-card__text {

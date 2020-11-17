@@ -1,5 +1,5 @@
 .news-result {
-  padding: 0 104px;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -11,7 +11,7 @@
   grid-auto-columns: 400px;
   grid-auto-rows: 576px;
   padding: 62px 0 62px 0;
-  margin: 0px;
+  margin: 0 auto;
   list-style-type: none;
   justify-content: center;
   transition: .3s ease-out;

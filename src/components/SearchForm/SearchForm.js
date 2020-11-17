@@ -1,8 +1,20 @@
 import React from "react";
+import { newsApi } from "../../api/NewsApi";
+import { makeDateCorrect } from "../../utils/utils";
+
 import "./SearchForm.css";
 
-function SearchForm({ searchIsClicked }) {
-  const [value, setValue] = React.useState('');
+function SearchForm({
+  searchIsClicked,
+  setOnLoad,
+  onWithoutResults,
+  setOnWithoutResults,
+  onError,
+  setOnError,
+  setFindedNews,
+  setShowedNews,
+}) {
+  const [value, setValue] = React.useState("");
   const [isValid, setIsValid] = React.useState(false);
 
   const handleChange = (event) => {
@@ -10,17 +22,44 @@ function SearchForm({ searchIsClicked }) {
     const value = target.value;
     setValue(value);
     setIsValid(target.closest("form").checkValidity());
-    console.log(value);
   };
 
   function clickOnSearch(e) {
+    if (onWithoutResults) setOnWithoutResults(false);
+    if (onError) setOnError(false);
     e.preventDefault();
+    setShowedNews([]);
     searchIsClicked(true);
-    //добавить асинхронный запрос setNewsCards к апи
-    //Сразу после начала запроса стейт searchIsClicked(true);
-    // и отображается Loader
-    // в случае успеха меняется стейт отображения карточек
-    // в случае провала стейт, отвечающий за notFound
+    setOnLoad(true);
+    newsApi
+      .getNews(value)
+      .then((res) => {
+        if (res.totalResults === 0) setOnWithoutResults(true);
+        else {
+          const titleValue = value[0].toUpperCase() + value.slice(1);
+          for (let i = 1; i < value.length; i++) {
+            titleValue[i].toLowerCase()
+          }
+          const transformArray = res.articles.map((elem) => {
+            return {
+              date: makeDateCorrect(elem.publishedAt),
+              title: elem.title,
+              text: elem.description,
+              source: elem.source.name,
+              link: elem.url,
+              image: elem.urlToImage,
+              keyword: titleValue,
+            };
+          });
+          localStorage.setItem("news", JSON.stringify(transformArray));
+          setFindedNews(transformArray);
+          setShowedNews(transformArray.slice(0, 3));
+        }
+      })
+      .catch(() => setOnError(true))
+      .finally(() => {
+        setOnLoad(false);
+      });
   }
 
   return (
@@ -41,7 +80,11 @@ function SearchForm({ searchIsClicked }) {
             value={value}
             required
           />
-          <button className="form__button search__button" type="submit" disabled={!isValid}>
+          <button
+            className="form__button search__button"
+            type="submit"
+            disabled={!isValid}
+          >
             Искать
           </button>
         </form>

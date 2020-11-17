@@ -1,14 +1,22 @@
 import React from "react";
 import "./Navigation.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import logout from "../../vendor/images/logout.svg";
 import logoutwhite from "../../vendor/images/logoutwhite.svg";
 
 function Navigation({ loggedIn, saved, main, mobileNavIsOpened, openPopup, mobiNavClick }) {
-
+  const history = useHistory();
+  const user = React.useContext(CurrentUserContext);
   function openPopupA() {
     openPopup();
     if (mobileNavIsOpened) mobiNavClick();
+  }
+
+  function onSignOut() {
+    localStorage.removeItem("token");
+    user.setLoggedIn(false);
+    history.go(0);
   }
 
 
@@ -41,8 +49,8 @@ function Navigation({ loggedIn, saved, main, mobileNavIsOpened, openPopup, mobiN
         )}
       </ul>
       {loggedIn && (
-        <button className={main || mobileNavIsOpened ? "navigation__button navigation__button_white" : "navigation__button"} type="button">
-          Ростислав
+        <button className={main || mobileNavIsOpened ? "navigation__button navigation__button_white" : "navigation__button"} type="button" onClick={onSignOut}>
+          {user.currentUser.name}
           <img
             className="navigation__button-icon"
             src={main || mobileNavIsOpened ? logoutwhite : logout}

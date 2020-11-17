@@ -1,13 +1,13 @@
-.without-result {
+.error-result {
   padding-bottom: 64px;
 }
 
-.without-result__pic {
+.error-result__pic {
   width: 96px;
   height: 96px;
 }
 
-.without-result__title {
+.error-result__title {
   font-family: "Roboto Slab", Arial, sans-serif;
   font-style: normal;
   font-weight: normal;
@@ -19,7 +19,7 @@
   padding-top: 20px;
 }
 
-.without-result__text {
+.error-result__text {
   font-family: "Roboto", Arial, sans-serif;
   font-style: normal;
   font-weight: normal;
@@ -32,12 +32,12 @@
 }
 
 @media screen and (max-width: 950px) {
-  .without-result {
+  .error-result {
     padding-bottom: 40px;
   }
 }
 @media screen and (max-width: 767px) {
-  .without-result {
+  .error-result {
     padding: 0 0 28px;
   }
 }

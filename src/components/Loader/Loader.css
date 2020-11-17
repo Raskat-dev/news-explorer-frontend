@@ -1,3 +1,7 @@
+.loader {
+  padding: 0 0 64px;
+}
+
 .loader__preloader {
   display: block;
   width: 66px;
@@ -24,5 +28,17 @@
 @keyframes spin {
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .loader {
+    padding: 0 0 40px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .loader {
+    padding: 0 0 28px;
   }
 }

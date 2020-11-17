@@ -8,6 +8,7 @@ import "./Form.css";
 function Popup({ isOpen, onClose }) {
   const [popupType, setPopupType] = React.useState('authorization');
   const [values, setValues] = React.useState({});
+  const [successMessage, setSuccessMessage] = React.useState('');
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
 
@@ -20,7 +21,6 @@ function Popup({ isOpen, onClose }) {
       setErrors({...errors, [name]: target.title });
     }
     else setErrors({...errors, [name]: '' });
-    // setErrors({...errors, [name]: target.validationMessage });
     setIsValid(target.closest("form").checkValidity());
   };
 
@@ -75,9 +75,9 @@ function Popup({ isOpen, onClose }) {
         >
           <span></span>
         </button>
-        {popupType === "authorization" && <AuthorizationForm handleChange={handleChange} values={values} errors={errors} isValid={isValid} setPopupType={setPopupType} />}
-        {popupType === "registration" && <RegistrationForm handleChange={handleChange} values={values} errors={errors} isValid={isValid} setPopupType={setPopupType} />}
-        {popupType === "success" && <SuccessForm setPopupType={setPopupType} />}
+        {popupType === "authorization" && <AuthorizationForm handleChange={handleChange} values={values} errors={errors} isValid={isValid} setPopupType={setPopupType} resetForm={resetForm} setErrors={setErrors} onClose={onClose} />}
+        {popupType === "registration" && <RegistrationForm handleChange={handleChange} values={values} errors={errors} isValid={isValid} setPopupType={setPopupType} resetForm={resetForm} setErrors={setErrors} setSuccessMessage={setSuccessMessage} />}
+        {popupType === "success" && <SuccessForm setPopupType={setPopupType} successMessage={successMessage} />}
       </div>
     </div>
   );
