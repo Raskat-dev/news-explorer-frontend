@@ -28,10 +28,6 @@ function AuthorizationForm({
           if (res) {
             user.setCurrentUser(res);
             user.setLoggedIn(true);
-            myNewsApi
-              .get()
-              .then((res) => user.setSavedNews(res))
-              .catch((err) => console.log(err));
           }
         });
       })
@@ -108,7 +104,7 @@ function AuthorizationForm({
           id="general-error"
           className="form__input-error form__input-error_general"
         >
-          {errors.general}
+          {errors.general && 'Неправильный email или пароль'}
         </span>
         <button
           className={!isValid ? "form__button_popup_disabled" : "form__button form__button_popup"}

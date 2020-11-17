@@ -16,7 +16,7 @@ function Navigation({ loggedIn, saved, main, mobileNavIsOpened, openPopup, mobiN
   function onSignOut() {
     localStorage.removeItem("token");
     user.setLoggedIn(false);
-    history.push("/");
+    history.go(0);
   }
 
 

@@ -1,5 +1,5 @@
 export const NewsExplorerApiData = {
-  URL: 'http://api.ne.rk.students.nomoreparties.co'
+  URL: 'https://api.ne.rk.students.nomoreparties.co'
 }
 
 // функции для получения времени
@@ -36,7 +36,7 @@ function takeToDate() {
 }
 
 export const NewsApiData = {
-  URL: 'http://newsapi.org/v2/everything?',
+  URL: 'https://nomoreparties.co/news/v2/everything?',
   KEY: "1fc8ee1f0bbd4705b8ccb5aeb731b908",
   FROM: takeFromDate(),
   TO: takeToDate(),

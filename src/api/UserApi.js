@@ -37,10 +37,7 @@ class MyUserApi {
         if (res.status === 200) {
           return res.json();
         }
-        if (res.status === 400) {
-          throw new Error("Не передано одно из полей");
-        }
-        if (res.status === 401) {
+        if (res.status === 401 || res.status === 401) {
           throw new Error("Неправильные почта или пароль");
         }
       })

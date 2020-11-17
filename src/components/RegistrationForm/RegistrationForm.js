@@ -122,7 +122,7 @@ function RegistrationForm({
           id="general-error"
           className="form__input-error form__input-error_general"
         >
-          {errors.general}
+          {errors.general && 'Такой пользователь уже зарегестрирован'}
         </span>
         <button
           className={!isValid ? "form__button_popup_disabled" : "form__button form__button_popup"}

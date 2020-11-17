@@ -6,8 +6,10 @@ import SearchForm from "../SearchForm/SearchForm";
 import NewsBlock from "../NewsBlock/NewsBlock";
 import Popup from "../Popup/Popup";
 import { myNewsApi } from "../../api/NewsActionApi";
+import { useHistory } from "react-router-dom"
 
 function Main({ loggedIn, savedNews, setSavedNews }) {
+  const history = useHistory();
   const [newsSearchIsClicked, setNewsSearchIsClicked] = React.useState(false);
   const [popupIsOpened, setPopupIsOpened] = React.useState(false);
   const [onLoad, setOnLoad] = React.useState(false);
@@ -61,7 +63,7 @@ function Main({ loggedIn, savedNews, setSavedNews }) {
       setShowedNews(jsonNews.slice(0, 3));
       setNewsSearchIsClicked(true);
     }
-  }, []);
+  }, [loggedIn, history]);
 
   return (
     <>
